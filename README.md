@@ -1,5 +1,5 @@
 # SraPOC
-La Señora P.O.C ( LA Prueba de Concepto)
+La Señora P.O.C, siempre dice "LA" POC o "LA" Prueba de Concepto, deben hablar de una Señora.
 
 ## Que es la Sra. POC?
 La Sra. POC es una aplicacion hecha en Javascript que se ejecuta en un entorno de ejecucion de Node.js, 
