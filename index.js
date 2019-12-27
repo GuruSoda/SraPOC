@@ -1,8 +1,8 @@
 var app = require('./app');
-var debug = require('debug')('poc02:server');
+var debug = require('debug')('srapoc:server');
 var http = require('http');
 
-var port = process.env.PORT || '3000';
+var port = process.env.PORT || '28275';
 app.set('port', port);
 
 var server = http.createServer(app);

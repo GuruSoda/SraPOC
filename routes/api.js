@@ -7,7 +7,7 @@ const process = require('process');
 router.get('/', function(req, res) {
   res.send(
       {
-          apis : ['/api', '/api/info']
+          apis : ['/api', '/api/info', '/api/stdout']
       });
 });
 

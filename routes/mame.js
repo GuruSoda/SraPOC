@@ -41,7 +41,7 @@ router.get('/games', function(req, res) {
     let vector = []
 
     db.serialize(function() {
-        db.each("SELECT name from game", function(err, row) {
+        db.each("SELECT name from game order by name asc", function(err, row) {
             if (err) res.json([])
             else vector.push(row.name)
         }, function(error, num_rows) {
