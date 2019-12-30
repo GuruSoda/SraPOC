@@ -9,51 +9,31 @@ El puerto que utiliza en el 28275
 ## API's que expone la Sra. POC
 
 ### Informacion
-* /api
-  * Listado de posibles API's
-* /api/info
-  * Retorna un objeto JSON con informacion acerca del host que contiene la imagen.
+#### /api
+Listado de posibles API's
 
-### Envio via POST y salida por stdout
-* /api/stdout
-  * Se envia un POST con un objeto JSON y el mismo objeto es enviado a STDOUT.
-
-### Consultas a base de datos SQLite con informacion acerca del M.A.M.E.
-* /mame/games
-  * Retorna en formato JSON un vector con los nombres de los juegos del emulador M.A.M.E. 0.216
-* /mame/gamesv2
-  * Retorna un vector con objetos JSON conteniendo las llaves "nombre" y "description" de cada juego en el M.A.M.E..
-* /mame/games/[juego]
-  * Retorna un objeto JSON con informacion del juego pasado por la URL
-
-### Ejemplos de uso
-
-Listar las API rest:
-```sh
-$ curl https://api.srapoc.com:28275/api | jq
-```
-
-Informacion sobre el host donde esta ejecutandose:
-```sh
-curl https://api.srapoc.com:28275/api/info | jq
-```
-
-Envio de un objeto JSON por POST:
-```sh
-curl -X POST -H "Content-Type: application/json" -d '{"username":"abc","password":"abc"}' https://api.srapoc.com:28275/api/stdout
-```
-
-#### Consulta de todos los Juegos de MAME con el cliente de la Sra. POC:
-
-Este cliente consulta la lista completa de juegos realizando una consulta REST API uno por uno mostrando por pantalla la descripcion del juego que fue consultado y retornado desde el servidor la informacion completa, donde tambien en el servidor el objeto fue enviado a STDOUT
+Salida:
 
 ```json
-node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
+{
+"apis": [
+    "/api",
+    "/api/info",
+    "/api/stdout"
+    ]
+}
 ```
 
-### Ejemplos de respuestas:
+Prueba:
+```sh
+$ curl http://api.srapoc.com:28275/api | jq
+```
 
-/api/info
+
+#### /api/info
+Retorna un objeto JSON con informacion acerca del host que contiene la aplicacion.
+
+Salida:
 ```json
 {
     "env": {
@@ -85,14 +65,41 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
             "cidr": "10.64.7.27/24"
             }
         ],
-        "VMware Network Adapter VMnet1": [...],
-        "VMware Network Adapter VMnet8": [...],
-        "Loopback Pseudo-Interface 1": [...]
+        "Loopback Pseudo-Interface 1": []
     }
 }
 ```
 
-/mame/games
+Prueba:
+Informacion sobre el host donde esta ejecutandose:
+```sh
+curl http://api.srapoc.com:28275/api/info | jq
+```
+
+### Envio via POST y salida por stdout
+
+#### /api/stdout
+Se envia un POST con un objeto JSON y el mismo objeto es enviado a STDOUT.
+
+Envio de un objeto JSON por POST:
+```sh
+curl -X POST -H "Content-Type: application/json" -d '{"usuario":"abc","clave":"def"}' http://api.srapoc.com:28275/api/stdout
+```
+
+Salida:
+```json
+{
+    "usuario": "abc",
+    "clave": "def"
+}
+```
+
+### Consultas a base de datos SQLite con informacion acerca del M.A.M.E.
+
+#### /mame/games
+Retorna en formato JSON un vector con los nombres de los juegos del emulador M.A.M.E. version 0.216
+
+Ejemplo:
 ```json
 [
     "005",
@@ -114,8 +121,70 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
     "1941"
 ]
 ```
+Prueba:
+```sh
+curl http://api.srapoc.com:28275/mame/games | jq
+```
 
-/mame/games/gng
+#### /mame/gamesv2
+Retorna un vector con objetos JSON conteniendo las llaves "nombre" y "description" de cada juego en el M.A.M.E..
+
+Salida:
+```json
+[
+    {
+    "name": "gng",
+    "description": "Ghosts'n Goblins (World? set 1)"
+    },
+    {
+    "name": "gnga",
+    "description": "Ghosts'n Goblins (World? set 2)"
+    },
+    {
+    "name": "gngbl",
+    "description": "Ghosts'n Goblins (bootleg with Cross)"
+    },
+    {
+    "name": "gngblita",
+    "description": "Ghosts'n Goblins (Italian bootleg, harder)"
+    },
+    {
+    "name": "gngc",
+    "description": "Ghosts'n Goblins (World? set 3)"
+    },
+    {
+    "name": "gngprot",
+    "description": "Ghosts'n Goblins (prototype)"
+    },
+    {
+    "name": "gngt",
+    "description": "Ghosts'n Goblins (US)"
+    },
+    {
+    "name": "gnome",
+    "description": "Gnome (070906 Russia)"
+    },
+    {
+    "name": "gnome_10",
+    "description": "Gnome (100326 Lottery)"
+    },
+    {
+    "name": "gnome_11",
+    "description": "Gnome (100326 Entertainment)"
+    }
+]
+```
+
+Prueba:
+```sh
+curl http://api.srapoc.com:28275/mame/gamesv2 | jq
+```
+
+#### /mame/games/[juego]
+Retorna un objeto JSON con informacion del juego pasado por la URL.
+A su vez, tambien el objeto retornado es enviado a STDOUT.
+
+Salida:
 ```json
 {
     "id_game": 6856,
@@ -155,3 +224,19 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
     ]
 }
 ```
+
+Prueba:
+```sh
+curl http://api.srapoc.com:28275/mame/games/gng | jq
+```
+
+### Consulta de todos los Juegos de MAME con el cliente de la Sra. POC:
+El cliente "listaCompleta.js" consulta via API REST todos los juegos existentes en la base de datos del M.A.M.E..
+La tarea se puede dividir en dos partes, la primera, llama a la API REST que retorna solo los nombres de los juegos ( /mame/games ) y como segunda parte, por cada juego adquirido en la etapa anterior realiza una peticion a la API REST que le retorna toda la informacon sobre el juego (/mame/games/[nombre]), como salida la aplicacion solo muestra la descripcion y en el servidor muestra la informacion completa por STDOUT en formato objeto JSON.
+
+ejecucion:
+```json
+node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
+```
+
+##### Gracias por llegar hasta aqui.
