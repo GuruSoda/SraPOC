@@ -127,7 +127,8 @@ router.get('/games/:name', function(req, res) {
                                 } else {
                                     juego.roms = rows
 
-                                    console.log(juego)
+//                                    console.log(juego)
+                                    console.log(JSON.stringify(data))
                         
                                     res.json(juego)
                                 }
