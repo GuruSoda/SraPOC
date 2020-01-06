@@ -19,7 +19,8 @@ Salida:
 "apis": [
     "/api",
     "/api/info",
-    "/api/stdout"
+    "/api/stdout",
+    "/api/hostname"
     ]
 }
 ```
@@ -28,7 +29,6 @@ Prueba:
 ```sh
 $ curl http://api.srapoc.com:28275/api | jq
 ```
-
 
 #### /api/info
 Retorna un objeto JSON con informacion acerca del host que contiene la aplicacion.
@@ -76,6 +76,25 @@ Informacion sobre el host donde esta ejecutandose:
 curl http://api.srapoc.com:28275/api/info | jq
 ```
 
+La salida tambien es mostrada via STDOUT, sin formatear.
+
+#### /api/hostname
+Retorna el nombre del host donde se encuentra ejecutandose
+
+Salida:
+```json
+{
+    "hostname": "tecnol083959ln"
+}
+```
+Prueba:
+Informacion sobre el host donde esta ejecutandose:
+```sh
+curl http://api.srapoc.com:28275/api/hostname | jq
+```
+
+La salida tambien es mostrada via STDOUT, sin formatear.
+
 ### Envio via POST y salida por stdout
 
 #### /api/stdout
@@ -93,6 +112,8 @@ Salida:
     "clave": "def"
 }
 ```
+
+La salida tambien es mostrada via STDOUT, sin formatear.
 
 ### Consultas a base de datos SQLite con informacion acerca del M.A.M.E.
 

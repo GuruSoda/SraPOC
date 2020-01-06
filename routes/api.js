@@ -7,7 +7,7 @@ const process = require('process');
 router.get('/', function(req, res) {
   res.send(
       {
-          apis : ['/api', '/api/info', '/api/stdout']
+          apis : ['/api', '/api/info', '/api/stdout', '/api/hostname']
       });
 });
 
@@ -27,11 +27,23 @@ router.get('/info', function(req, res) {
   data.Interfaces = os.networkInterfaces()
   
   res.json(data);
+
+  console.log(JSON.stringify(data))
 });
 
 router.post('/stdout', function(req, res) {
-  console.log(req.body)
   res.json(req.body)
+
+  console.log(JSON.stringify(req.body))
+})
+
+router.get('/hostname', function(req, res) {
+
+  let data = { hostname: os.hostname() }
+
+  res.json(data)
+
+  console.log(JSON.stringify(data))
 })
 
 module.exports = router;
