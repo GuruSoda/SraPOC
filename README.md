@@ -260,4 +260,26 @@ ejecucion:
 node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
 ```
 
+#### Pasos para agregar a la Sra. POC en un cluster de openshift
+* oc login -u frossi https://console-openshift-console.apps.cltrnoprod.bancocredicoop.coop:6443
+* oc new-build --name srapoc https://github.com/GuruSoda/SraPOC.git
+*  Problemas con el proxy? -> git config --global http.proxyAuthMethod 'basic'
+* oc logs -f bc/srapoc -> ver el log
+* oc set env bc/srapoc AUTOR=frossi -> agregar una variable de entorno
+*   oc set env bc/srapoc --list -> ver las variables de entorno
+* oc start-build srapoc -> repetir el proceso de build
+* oc new-app srapoc
+* oc get pods -> ver las etapas hasta ver donde esta ejecutandose
+* oc expose svc/srapoc --port=28275 --> puerto defaul es 8080
+* oc edit svc/srapoc --> cambiar el puerto.
+* oc scale dc/srapoc --replicas=3 --> cantidad de replicas/pods ejecutandose simultaneamente.
+* oc delete all --selector app=srapoc
+* oc delete is/srapoc
+* oc delete bc/srapoc
+* oc get all
+
+
+##### Links interesantes para leer.
+https://cookbook.openshift.org/working-with-resource-objects/how-do-i-delete-all-resource-objects-for-an-application.html
+
 ##### Gracias por llegar hasta aqui.
