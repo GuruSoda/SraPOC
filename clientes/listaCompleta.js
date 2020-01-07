@@ -3,7 +3,11 @@ const fetch = require('node-fetch')
 
 let url, nombres
 
-if (argv.url || argv.u) url = argv.url || argv.u
+if (argv.url || argv.u) {
+    url = argv.url || argv.u
+
+    if (url[url.length] !== '/') url += '/'
+}
 
 if (!url) {
     ayuda()

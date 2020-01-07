@@ -17,10 +17,11 @@ Salida:
 ```json
 {
 "apis": [
-    "/api",
-    "/api/info",
-    "/api/stdout",
-    "/api/hostname"
+    "/",
+    "/info",
+    "/stdout",
+    "/hostname",
+    "/falla"
     ]
 }
 ```
@@ -278,6 +279,13 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
 * oc delete bc/srapoc
 * oc get all
 
+#### Problemas con el proxy trabajando con git?
+git config --global http.sslVerify false
+git config --global https.sslVerify false
+git config --global http.proxy http://user:pass@yourproxy:port
+git config --global https.proxy http://user:pass@yourproxy:port
+git config --global http.proxyAuthMethod 'basic'
+git config --global https.proxyAuthMethod 'basic'
 
 ##### Links interesantes para leer.
 https://cookbook.openshift.org/working-with-resource-objects/how-do-i-delete-all-resource-objects-for-an-application.html
