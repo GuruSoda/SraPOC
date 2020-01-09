@@ -1,5 +1,5 @@
 # SraPOC
-La Señora P.O.C, siempre dice "LA" POC o "LA" Prueba de Concepto, deben hablar de una Señora.
+La Señora P.O.C, siempre dicen "LA" POC o "LA" Prueba de Concepto, deben hablar de una Señora.
 
 ## Que es la Sra. POC?
 La Sra. POC es una aplicacion hecha en Javascript que se ejecuta en un entorno de ejecucion de Node.js, 
@@ -261,13 +261,13 @@ ejecucion:
 node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
 ```
 
-#### Pasos para agregar a la Sra. POC en un cluster de openshift
-* oc login -u frossi https://console-openshift-console.apps.cltrnoprod.bancocredicoop.coop:6443
+### Pasos para agregar a la Sra. POC en un cluster de openshift
+* oc login -u frossi https://console-openshift-console.apps.cltrtecno.bancocredicoop.coop:6443
 * oc new-build --name srapoc https://github.com/GuruSoda/SraPOC.git
-*  Problemas con el proxy? -> git config --global http.proxyAuthMethod 'basic'
+  * Problemas con el proxy? -> git config --global http.proxyAuthMethod 'basic'
 * oc logs -f bc/srapoc -> ver el log
 * oc set env bc/srapoc AUTOR=frossi -> agregar una variable de entorno
-*   oc set env bc/srapoc --list -> ver las variables de entorno
+  * oc set env bc/srapoc --list -> ver las variables de entorno
 * oc start-build srapoc -> repetir el proceso de build
 * oc new-app srapoc
 * oc get pods -> ver las etapas hasta ver donde esta ejecutandose
@@ -280,14 +280,30 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
 * oc get all
 
 #### Problemas con el proxy trabajando con git?
-git config --global http.sslVerify false
-git config --global https.sslVerify false
-git config --global http.proxy http://user:pass@yourproxy:port
-git config --global https.proxy http://user:pass@yourproxy:port
-git config --global http.proxyAuthMethod 'basic'
-git config --global https.proxyAuthMethod 'basic'
+* git config --global http.sslVerify false
+* git config --global https.sslVerify false
+* git config --global http.proxy http://user:pass@yourproxy:port
+* git config --global https.proxy http://user:pass@yourproxy:port
+* git config --global http.proxyAuthMethod 'basic'
+* git config --global https.proxyAuthMethod 'basic'
+
+#### Preguntas y respuestas
+* Como cambiar el puerto y url que expongo?
+  * oc delete route srapoc
+  * oc expose svc/srapoc --hostname srapoc.apps.cltrtecno.bancocredicoop.coop --port=28275
+
+* Como le pongo balanceo a mi aplicacion?
+  * oc set env dc/srapoc ROUTER_LOAD_BALANCE_ALGORITHM=source|roundrobin|leastconn
+  * oc set env dc/srapoc ROUTER_TCP_BALANCE_SCHEME=source|roundrobin|leastconn
+
+* Como veo los operadores de un cluster?
+* oc get clusteroperator
 
 ##### Links interesantes para leer.
+Como borrar todos los recursos de una aplicacion
 https://cookbook.openshift.org/working-with-resource-objects/how-do-i-delete-all-resource-objects-for-an-application.html
+
+Como configurar load balancer
+http://people.redhat.com/jrivera/openshift-docs_preview/openshift-origin/glusterfs-review/architecture/networking/routes.html
 
 ##### Gracias por llegar hasta aqui.
