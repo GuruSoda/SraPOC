@@ -1,3 +1,4 @@
 {
-    "database": "databases/mame.sqlite" 
+    "database": "databases/mame.sqlite",
+    "snap": "c:/Cosas/MAME-2003-078/mame2003/images"
 }

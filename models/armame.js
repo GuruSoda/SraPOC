@@ -1,6 +1,8 @@
 const config = require('../configs/armame')
 
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs')
+const path = require('path')
 
 class arMame {
     constructor () {
@@ -98,6 +100,8 @@ class arMame {
                                 resolve({})
                             } else {
                                 juego = row
+
+                                that.agregarImagenes (juego)
                                 
                                 that.db.all(`
                                     select r.name, r.size, r.crc, r.sha1, t.text  
@@ -108,7 +112,7 @@ class arMame {
                                             juego.roms = []
                                         } else {
                                             juego.roms = rows
-                                
+    
                                             resolve(juego)
                                         }
                                     })
@@ -172,6 +176,18 @@ router.get('/gamesv2/:name', function(req, res, next) {
 
     static instance(database) {
         return new arMame(database)
+    }
+
+    agregarImagenes (juego) {
+        if (!juego) return 
+
+        let ruta = path.join(config.snap, juego.name + '.jpg')
+
+        console.log(ruta)
+
+        if (fs.existsSync(ruta)) {
+            juego.snap = ruta
+        }
     }
 }
 
