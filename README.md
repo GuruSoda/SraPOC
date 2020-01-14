@@ -291,6 +291,7 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
 * Como cambiar el puerto y url que expongo?
   * oc delete route srapoc
   * oc expose svc/srapoc --hostname srapoc.apps.cltrtecno.bancocredicoop.coop --port=28275
+  * oc edit route srapoc
 
 * Como le pongo balanceo a mi aplicacion?
   * oc set env dc/srapoc ROUTER_LOAD_BALANCE_ALGORITHM=source|roundrobin|leastconn
