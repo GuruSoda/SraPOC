@@ -101,7 +101,7 @@ class arMame {
                             } else {
                                 juego = row
 
-                                that.agregarImagenes (juego)
+//                                that.agregarImagenes (juego)
                                 
                                 that.db.all(`
                                     select r.name, r.size, r.crc, r.sha1, t.text  

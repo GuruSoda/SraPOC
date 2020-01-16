@@ -32,19 +32,19 @@
               <div class="col s12">
                 <div class="card center valign-wrapper teal z-depth-5 section">
                     <div class="col s4 grey-text text-lighten-2 ">
-                        <a href="#/buscar" class="waves-effect btn-floating waves-light white-text hoverable">
+                        <a href="#/consultar" class="waves-effect btn-floating waves-light white-text hoverable">
                             <i class="material-icons">call_made</i>
                         </a>
                         <h5>Consultar Juegos</h5>
                     </div>
                     <div class="col s4 grey-text text-lighten-2">
-                        <a class="waves-effect btn-floating waves-light white-text hoverable">
+                        <a href="#/buscar" class="waves-effect btn-floating waves-light white-text hoverable">
                             <i class="material-icons">search</i>
                         </a>
                         <h5>Buscar Juego</h5>
                     </div>
                     <div class="col s4 grey-text text-lighten-2">
-                        <a class="waves-effect btn-floating waves-light white-text hoverable">
+                        <a href="#/info" class="waves-effect btn-floating waves-light white-text hoverable">
                             <i class="material-icons">info</i>
                         </a>
                         <h5>Info POD</h5>
@@ -53,7 +53,7 @@
               </div>
           </div>
 
-      <div class="main">
+      <div id="main">
         <div class="row">
             <div class="input-field col s12 m8 offset-m2">
                 <i class="material-icons prefix">search</i>
@@ -116,6 +116,7 @@
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script type="text/javascript" src="js/signals.js"></script>
   <script type="text/javascript" src="js/crossroads.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
 
   <script>
@@ -124,9 +125,22 @@
       console.log('Home Page')
     })
 
+    crossroads.addRoute('#/consultar', function () {
+      console.log('A Consultar!')
+
+      load('#main', 'partials/pedido-juegos.html')
+
+    })
+
     crossroads.addRoute('#/buscar', function () {
       console.log('A Buscar!')
+      load('#main', 'partials/buscar.html')
     })
+
+    crossroads.addRoute('#/info', function () {
+      console.log('Info!')
+    })
+
 
     // En cada cambio del # va a verificar las rutas
 //    window.onhashchange = function () { crossroads.parse(window.location.hash) }

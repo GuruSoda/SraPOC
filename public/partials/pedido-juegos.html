@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="section">
+        <div class="col s6 m4 offset-s4 offset-m5">
+            <a id="botonComenzar" class="waves-effect waves-light btn" onclick=onListaCompleta()>Comenzar</a>
+        </div>
+    </div>
+
+    <div class="col s12 m6 offset-m3">
+        <div class="card-panel">
+            <div class="card-title">
+                <h5>Consultando Juegos</h5>
+            </div>
+
+            <div class="card-content">
+                <div class="progress">
+                    <div id="porcentaje-consulta" class="determinate"></div>
+                </div>
+
+                <h6>Consultados: <span id="contador-enviados">0/0</span></h6>
+            </div>
+        </div>
+    </div>
+
+    <div id="botonCancelar" class="section" hidden>
+        <div class="col s6 m4 offset-s4 offset-m5">
+            <a class="waves-effect waves-light btn red" onclick=onCancelarConsulta() hidden >Cancelar</a>
+        </div>
+    </div>
+
+</div>
