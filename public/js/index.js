@@ -58,8 +58,8 @@ async function onListaCompleta() {
 
     ejecutandoConsulta = true
 
-    document.querySelector('#botonComenzar').classList.add('disabled')
-    document.querySelector('#botonCancelar').removeAttribute('hidden')
+    document.getElementById('botonComenzar').classList.add('disabled')
+    document.getElementById('botonCancelar').removeAttribute('hidden')
 
     let i=0, total=armame.Nombres.length, porcentaje=0, porcentajeActual=0
     let msg=""
@@ -74,16 +74,16 @@ async function onListaCompleta() {
 
         porcentaje = (i*100)/total
 
-        document.querySelector('#contador-enviados').innerHTML = msg + ' (' + ~~porcentaje + '%)'
+        document.getElementById('contador-enviados').innerHTML = msg + ' (' + ~~porcentaje + '%)'
 
         if (porcentajeActual != porcentaje) {
             porcentajeActual = porcentaje
-            document.querySelector('#porcentaje-consulta').style['width'] = ~~porcentajeActual + '%' // style="width: 70%"
+            document.getElementById('porcentaje-consulta').style['width'] = ~~porcentajeActual + '%' // style="width: 70%"
         }
     }
 
-    document.querySelector('#botonComenzar').classList.remove('disabled')
-    document.querySelector('#botonCancelar').setAttribute('hidden', '');
+    document.getElementById('botonComenzar').classList.remove('disabled')
+    document.getElementById('botonCancelar').setAttribute('hidden', '');
 }
 
 function onCancelarConsulta() {
