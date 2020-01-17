@@ -4,7 +4,7 @@ function load(selector, url) {
     // se ejecuta cuando finalizo el GET
     request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
-            document.querySelector(selector).innerHTML = request.responseText;
+            document.getElementById(selector).innerHTML = request.responseText;
         }
     };
 

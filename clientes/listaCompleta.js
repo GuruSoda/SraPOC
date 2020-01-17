@@ -30,7 +30,8 @@ function sacarJuego(url) {
     return fetch(url)
     .then(rta => rta.json())
     .then(rta => {
-        console.log(rta.description)
+//        console.log(rta.description)
+        return rta.description
     })
 }
 
@@ -38,7 +39,8 @@ async function mostrar_juegos(host) {
     await sacarListaJuegos(host + 'mame/games')
 
     for (const juego of nombres) {
-        await sacarJuego(host + 'mame/games/' + juego)
+        // await sacarJuego(host + 'mame/games/' + juego)
+        console.log(await sacarJuego(host + 'mame/games/' + juego))
     }
 }
 

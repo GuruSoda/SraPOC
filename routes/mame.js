@@ -7,6 +7,17 @@ const armame = new mame()
 
 armame.Open()
 
+router.get('/version', function(req, res) {
+    
+    armame.version().then(function(nombres) {
+        res.json(nombres)
+    }).catch(function(error) {
+        res.json({})
+        console.log(error)
+    })
+
+});
+
 router.get('/gamesv3', function(req, res) {
     
     armame.GamesMemory().then(function(nombres) {

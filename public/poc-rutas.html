@@ -118,6 +118,7 @@
   <script type="text/javascript" src="js/crossroads.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/armameclient.js"></script>
 
   <script>
     
@@ -127,12 +128,12 @@
 
     crossroads.addRoute('#/consultar', function () {
       console.log('A Consultar!')
-      load('#main', 'partials/pedido-juegos.html')
+      load('main', 'partials/pedido-juegos.html')
     })
 
     crossroads.addRoute('#/buscar', function () {
       console.log('A Buscar!')
-      load('#main', 'partials/buscar.html')
+      load('main', 'partials/buscar.html')
     })
 
     crossroads.addRoute('#/info', function () {

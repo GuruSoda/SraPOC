@@ -23,6 +23,20 @@ class arMame {
         this.db.close();
     }
 
+    version() {
+        const that = this
+
+        return new Promise(function(resolve, reject) {
+            let vector = []
+
+            that.db.all("SELECT * from version", vector, (error, row) => {
+                if (error) {
+                    reject(error)
+                } else
+                    resolve(row)
+            })
+        })
+    }
 
     // Primera version donde carga todos los nombres a memoria
     GamesMemory() {
