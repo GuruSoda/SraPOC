@@ -1,32 +1,27 @@
 <div class="row">
-    <div class="section">
-        <div class="col s6 m4 offset-s4 offset-m5">
-            <a id="botonComenzar" class="waves-effect waves-light btn" onclick=onListaCompleta()>Comenzar</a>
-        </div>
-    </div>
-
     <div class="col s12 m6 offset-m3">
-        <div class="card-panel">
+        <div class="card">
+
             <div class="card-title">
-                <h5>Consultando Juegos</h5>
+                <h5 class="center-align grey lighten-3 text-lighten-2">Consultando Juegos</h5>
             </div>
 
-            <div class="card-content">
+            <div class="card-content" style="padding: 15px">
                 <div class="progress">
                     <div id="porcentaje-consulta" class="determinate"></div>
                 </div>
 
                 <h6>Consultados: <span id="contador-enviados">0/0</span></h6>
             </div>
-        </div>
-    </div>
 
-    <div id="botonCancelar" class="section" hidden>
-        <div class="col s6 m4 offset-s4 offset-m5">
-            <a class="waves-effect waves-light btn red" onclick=onCancelarConsulta() hidden >Cancelar</a>
+            <div class="card-action">
+                <a id="botonComenzar" class="waves-effect waves-light btn" onclick=onListaCompleta()><i class="material-icons right">check_circle</i>Comenzar</a>
+                <a id="botonCancelar" class="waves-effect waves-light btn red" onclick=onCancelarConsulta()><i class="material-icons right">cancel</i>Cancelar</a>
+            </div>
         </div>
+   
     </div>
-
+<!--
     <div class="row section">
         <div class="col s10 m8 offset-s1 offset-m2">
             <div class="card-panel">
@@ -34,4 +29,5 @@
             </div>
         </div>
     </div>
+-->
 </div>

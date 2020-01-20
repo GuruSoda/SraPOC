@@ -1,73 +1,25 @@
 ejecutandoConsulta = false
 
-class mame {
-    constructor() {
-        this.nombres = []
-    }
-
-    Mostrar() {
-        console.log('Nombre:')
-        this.nombres.forEach( item => {
-            console.log(item)
-        })
-    }
-
-    get Nombres() {
-        return this.nombres
-    }
-
-    Cargar() {
-     return fetch('mame/games')
-     .then(rta => rta.json())
-     .then(items => {
-        this.nombres = items
-        console.log('Cargados ',  items.length, ' Juegos')
-     })
-    }
-
-    GetJuego(juego) {
-        return fetch('mame/games/' + juego)
-                .then(rta => rta.json())
-                .then(rta => {                    
-//                    console.log(rta.description)
-                    // juego = rta;
-                })
-    }
-
-    GetJuegos() {
-        this.nombres.forEach(juego => {
-            this.GetJuego(juego)
-        })
-    }
-
-    async TraerJuegos() {
-        for (const juego of this.nombres) {
-            await this.GetJuego(juego)
-        }
-    }
-}
-
 async function onListaCompleta() {
 
-    let armame = new mame()
+    let armame = new arMameClient()
     
-    // trae la lista de juegos.
-    await armame.Cargar()
-
-//    await armame.TraerJuegos()
-
     ejecutandoConsulta = true
 
     document.getElementById('botonComenzar').classList.add('disabled')
-    document.getElementById('botonCancelar').removeAttribute('hidden')
 
-    let i=0, total=armame.Nombres.length, porcentaje=0, porcentajeActual=0
+    let i=0, total=0, porcentaje=0, porcentajeActual=0
     let msg=""
 
-    for (const juego of armame.Nombres) {
+    // traigo la lista completa de juegos (solo indices)
+    let nombres = await armame.machineNames()
+    total = nombres.length
+
+    // recorro cada nombre en la lista y se lo consulto a ArMame
+    for (const juego of nombres) {
         if (!ejecutandoConsulta) break
 
-        await armame.GetJuego(juego)
+        await armame.getMachine(juego)
 
         i++
         msg = i + "/" + total
@@ -83,37 +35,18 @@ async function onListaCompleta() {
     }
 
     document.getElementById('botonComenzar').classList.remove('disabled')
-    document.getElementById('botonCancelar').setAttribute('hidden', '');
 }
 
 function onCancelarConsulta() {
     ejecutandoConsulta = false
 }
 
-/*
-var nombres = []
+async function onBuscarJuego() {
+    let item = document.getElementById('buscar')
 
-function cargar_nombres() {
-    fetch('mame/games')
-    .then(rta => rta.json())
-    .then(items => {
-        console.log(items)
-        nombres = items
-    })  
-}
+    console.log(item.value)
 
-function GetJuego(juego) {
-    return fetch('mame/games/' + juego)
-    .then(rta => rta.json())
-    .then(rta => {
-        console.log(rta)
-    })
-}
+    let armame = new arMameClient()
 
-async function TraerJuegos() {
-    for (const juego of nombres) {
-        await GetJuego(juego)
-        console.log(juego);
-    }
+    console.log(await armame.buscar(item.value))
 }
-*/

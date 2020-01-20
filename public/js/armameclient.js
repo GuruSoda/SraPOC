@@ -19,9 +19,9 @@ class arMameClient {
         this._version = json.version
     }
 
-    async loadMachineNames() {
+    async machineNames() {
         const response = await fetch(this._urlArMame + this._vdirmame + '/games')
-        this._machinesName = await response.json()
+        return await response.json()
     }
 
      async getMachine(game) {
@@ -40,6 +40,48 @@ class arMameClient {
      get machines() {
          return this._machinesName
      }
+
+     async buscar(str) {
+/*
+         // forma normal:
+            return fetch(this._urlArMame + this._vdirmame + '/games/search', {
+                method: 'POST',
+                body: JSON.stringify({ word: str }),
+                headers:{ 'Content-Type': 'application/json' }
+            }).then(function(body) {
+                return body.json()
+            }).then(function(json) {
+                return json
+            })
+*/
+         // forma moderna:
+        let opciones = {
+            method: 'POST',
+            body: JSON.stringify({ word: str }),
+            headers:{ 'Content-Type': 'application/json' }
+        }
+
+        const res = await fetch(this._urlArMame + this._vdirmame + '/games/search', opciones)
+        return await res.json()
+     }
+    
+     async buscarv2(str) {
+        let xmlhttp = new XMLHttpRequest()
+
+        xmlhttp.open("POST", this._urlArMame + this._vdirmame + '/games/search')
+
+        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+        // se ejecuta cuando finalizo el GET
+        xmlhttp.onload = function() {
+            if (xmlhttp.status >= 200 && xmlhttp.status < 400) {
+                return JSON.parse(xmlhttp.responseText);
+            }
+        };
+
+        xmlhttp.send(JSON.stringify({ word: str }));
+    }
+
 }
 
 /*

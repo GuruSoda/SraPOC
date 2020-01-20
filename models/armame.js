@@ -7,9 +7,10 @@ const path = require('path')
 class arMame {
     constructor () {
         this._DBFile = ""
+        this._limite = 50
     }
 
-    Open(DBFile) {
+    open(DBFile) {
 
         if (DBFile)
             this.db = new sqlite3.Database(DBFile, sqlite3.OPEN_READONLY)
@@ -19,7 +20,7 @@ class arMame {
         return this
     }
 
-    Close() {
+    close() {
         this.db.close();
     }
 
@@ -39,7 +40,7 @@ class arMame {
     }
 
     // Primera version donde carga todos los nombres a memoria
-    GamesMemory() {
+    gamesMemory() {
         const that = this
 
         return new Promise(function(resolve, reject) {
@@ -58,7 +59,7 @@ class arMame {
         })
     }
 
-    Games() {
+    games() {
 
         const that = this
 
@@ -77,7 +78,7 @@ class arMame {
          })
     }
 
-    GamesDescription() {
+    gamesDescription() {
         const that = this
 
         return new Promise(function (resolve, reject) {
@@ -94,7 +95,7 @@ class arMame {
         })
     }
 
-    Game(name) {
+    game(name) {
 
         const that = this
 
@@ -187,6 +188,24 @@ router.get('/gamesv2/:name', function(req, res, next) {
     })
 });
 */
+
+    search(items) {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            let vector = []
+
+            that.db.parallelize(function() {
+                that.db.each(`SELECT name, description from game where name like '%${items}%' or description like '%${items}%' limit ${that._limite}`, function(err, row) {
+                    vector.push({name: row.name, description: row.description})
+               }, function(error, total) {
+                   if (error) reject(error)
+                   else resolve(vector)
+               })
+            })
+        })
+
+    }
 
     static instance(database) {
         return new arMame(database)
