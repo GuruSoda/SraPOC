@@ -42,11 +42,39 @@ function onCancelarConsulta() {
 }
 
 async function onBuscarJuego() {
-    let item = document.getElementById('buscar')
-
-    console.log(item.value)
+    let item = document.getElementById('textoBuscar')
 
     let armame = new arMameClient()
 
-    console.log(await armame.buscar(item.value))
+    let resultado = (await armame.buscar(item.value)).map(function(obj) {
+        return `
+            <tr>
+                <td>${obj.name}</td>
+                <td>${obj.description}</td>
+                <td>${obj.year}</td>
+            </tr>`
+    })
+
+    let tabla = tablaResultado(resultado)
+
+    document.getElementById('resultado-busqueda').innerHTML = tabla
+}
+
+function tablaResultado(res) {
+
+    let DOMTabla = `
+    <table class="striped">
+    <thead>
+      <tr>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Año</th>
+      </tr>
+    </thead>`
+
+    for (i=0;i<res.length;i++) DOMTabla += res[i]
+
+    DOMTabla += '<tbody></tbody></table>'
+
+    return DOMTabla
 }

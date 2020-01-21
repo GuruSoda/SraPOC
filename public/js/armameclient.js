@@ -24,7 +24,7 @@ class arMameClient {
         return await response.json()
     }
 
-     async getMachine(game) {
+    async getMachine(game) {
 // Otra forma de hacerlo, mas visual:         
 //        const response = await fetch(this._urlArMame + this._vdirmame + '/games/' + game)
 //        return await response.json()

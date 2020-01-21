@@ -196,8 +196,8 @@ router.get('/gamesv2/:name', function(req, res, next) {
             let vector = []
 
             that.db.parallelize(function() {
-                that.db.each(`SELECT name, description from game where name like '%${items}%' or description like '%${items}%' limit ${that._limite}`, function(err, row) {
-                    vector.push({name: row.name, description: row.description})
+                that.db.each(`SELECT name, description, year from game where name like '%${items}%' or description like '%${items}%' limit ${that._limite}`, function(err, row) {
+                    vector.push(row)
                }, function(error, total) {
                    if (error) reject(error)
                    else resolve(vector)
