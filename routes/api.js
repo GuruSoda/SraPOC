@@ -25,6 +25,8 @@ router.get('/info', function(req, res) {
   data.totalmem = os.totalmem()
   data.homedir = os.homedir()
   data.Interfaces = os.networkInterfaces()
+  data.freemem = os.freemem()
+  data.arch = os.arch()
   
   res.json(data);
 

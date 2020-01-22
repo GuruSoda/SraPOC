@@ -1,0 +1,12 @@
+.icono-grande {
+    font-size: 50px;
+}
+
+.card-content.sin-padding {
+    padding: 0px;
+    padding-top: 10px;
+}
+
+.progress {
+    height: 20px;
+}
