@@ -44,6 +44,13 @@
             <img class="responsive-img circle " src="img/srapoc.png" alt="" style="border: 5px solid black;">
           </div>
         </div>
+
+        <div class="col s12 section">
+          <div>
+            <h3 class="center">La Señora POC</h3>
+          </div>
+        </div>
+
       </div>
 
   <!--JavaScript at end of body for optimized loading-->
@@ -65,18 +72,14 @@
     })
 
     crossroads.addRoute('#/buscar', function () {
-      load('main', 'partials/buscar-juego.html')
-/*
-      document.getElementById('textoBuscar').addEventListener('keyup', function(event){
-            console.log('codigo!')
-            if (event.keyCode === 13) {
-              event.preventDefault();
-              document.getElementById('botonBuscar').click();
-            }
+      load('main', 'partials/buscar-juego.html', function() {
+            document.getElementById('textoBuscar').addEventListener('keyup', function(event){
+                if (event.keyCode === 13) {
+                  event.preventDefault();
+                  document.getElementById('botonBuscar').click();
+                }
+            })
       })
-
-    //  element.removeEventListener()
-*/
     })
 
     crossroads.addRoute('#/info', function () {
