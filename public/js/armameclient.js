@@ -1,6 +1,6 @@
 class arMameClient {
     
-    constructor(vdirmame = '/mame') {
+    constructor(vdirmame = 'mame') {
 
         this._machinesName = []
         this._urlArMame = ""
