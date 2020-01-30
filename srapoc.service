@@ -1,0 +1,25 @@
+[Unit]
+Description=Sra POC (Nodejs Server)
+#Requires=After=mysql.service       # Requires the mysql service to run first
+
+[Service]
+ExecStart=/opt/node/bin/node /opt/SraPOC/index.js
+# Required on some systems
+WorkingDirectory=/opt/SraPOC/
+Restart=always
+# Restart service after 10 seconds if node service crashes
+RestartSec=1
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=atlasv2
+User=fabricio
+Group=fabricio
+Environment=NODE_ENV=production PORT=7319
+Environment=NODE_HOME=/opt/node
+Environment=PATH=$NODE_HOME/bin:$PATH
+Environment=NODE_PATH=$NODE_HOME/lib/node_modules/npm/node_modules
+
+[Install]
+WantedBy=multi-user.target
+
