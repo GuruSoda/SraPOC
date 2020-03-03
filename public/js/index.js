@@ -15,11 +15,20 @@ async function onListaCompleta() {
     let nombres = await armame.machineNames()
     total = nombres.length
 
+    if (total === 0) {
+        M.toast({html: 'Sin juegos a consultar.'})
+    }
+
     // recorro cada nombre en la lista y se lo consulto a ArMame
     for (const juego of nombres) {
         if (!ejecutandoConsulta) break
 
         await armame.getMachine(juego)
+
+        if (juego.description === '') {
+            M.toast({html: `Error obteniendo ${juego}`, displayLength: 200})
+            continue
+        }
 
         i++
         msg = i + "/" + total

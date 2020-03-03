@@ -34,6 +34,8 @@ class arMameClient {
                         return body.json();
                     }).then(function(json){
                         return json
+                    }).catch(function(error){
+                        return error
                     })
      }
 
