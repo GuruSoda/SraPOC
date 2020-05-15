@@ -9,6 +9,8 @@ const mameRouter = require('./routes/mame');
 
 const app = express();
 
+app.set('etag', false)
+
 // app.use(logger('dev'));
 app.use(cors())
 app.use(bodyParser.json());
