@@ -21,7 +21,8 @@ Salida:
     "/info",
     "/stdout",
     "/hostname",
-    "/falla"
+    "/falla",
+    "/headers"
     ]
 }
 ```
@@ -115,6 +116,17 @@ Salida:
 ```
 
 La salida tambien es mostrada via STDOUT, sin formatear.
+
+#### /api/headers
+Retorna en varios formatos el headers del request.
+Los parametros pueden ser json,txt,nada.
+El default es json.
+nada indica sin respuesta, pero con formato json en el stdout del server.
+
+Ejemplo de ejecucion con parametros:
+```sh
+curl -v http://api.srapoc.com:28275/api/headers?salida=txt
+```
 
 ### Consultas a base de datos SQLite con informacion acerca del M.A.M.E.
 

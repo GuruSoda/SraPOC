@@ -59,7 +59,21 @@ router.get('/headers', function(req, res) {
 
   console.log(JSON.stringify(req.headers))
 
-  res.json(req.headers)
+  if (!req.query.salida) res.json(req.headers)
+
+  if (req.query.salida === 'json')
+    res.json(req.headers)
+  else if (req.query.salida === 'txt') {
+    let encabezado = ""
+
+    for (let key in req.headers) {
+      encabezado += key + ':' + req.headers[key] + "\n"
+    }
+
+    res.send(encabezado)
+  } else if (req.query.salida === 'nada') {
+    res.json()
+  }
 })
 
 module.exports = router;
