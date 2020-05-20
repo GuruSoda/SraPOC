@@ -76,4 +76,11 @@ router.get('/headers', function(req, res) {
   }
 })
 
-module.exports = router;
+router.get('/espera/:milisegundos', function(req, res) {
+  console.log(req.params.milisegundos)
+
+  setTimeout(function() { res.send('Se esperaron ' + req.params.milisegundos + ' Milisegundos.')}, req.params.milisegundos)
+
+})
+
+module.exports = router
