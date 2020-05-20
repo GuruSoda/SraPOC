@@ -7,7 +7,7 @@ const process = require('process');
 router.get('/', function(req, res) {
   res.send(
       {
-          apis : ['/', '/info', '/stdout', '/hostname', '/falla', '/headers']
+          apis : ['/', '/info', '/stdout', '/hostname', '/falla', '/headers', '/esperar']
       });
 });
 
@@ -67,7 +67,7 @@ router.get('/headers', function(req, res) {
     let encabezado = ""
 
     for (let key in req.headers) {
-      encabezado += key + ':' + req.headers[key] + "\n"
+      encabezado += key + ':' + req.headers[key] + '\n'
     }
 
     res.send(encabezado)
@@ -79,8 +79,7 @@ router.get('/headers', function(req, res) {
 router.get('/esperar/:milisegundos', function(req, res) {
   console.log(req.params.milisegundos)
 
-  setTimeout(function() { res.send('Se esperaron ' + req.params.milisegundos + ' Milisegundos.')}, req.params.milisegundos)
-
+  setTimeout(function() { res.send('Se esperaron ' + req.params.milisegundos + ' Milisegundos.\n')}, req.params.milisegundos)
 })
 
 module.exports = router
