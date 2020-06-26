@@ -30,9 +30,11 @@ function sacarJuego(url) {
     return fetch(url)
     .then(rta => rta.json())
     .then(rta => {
-//        console.log(rta.description)
         return rta.description
     })
+    .catch(error) {
+        console.log('Error:', error)
+    }
 }
 
 async function mostrar_juegos(host) {

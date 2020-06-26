@@ -309,6 +309,12 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
   * oc set env dc/srapoc ROUTER_LOAD_BALANCE_ALGORITHM=source|roundrobin|leastconn
   * oc set env dc/srapoc ROUTER_TCP_BALANCE_SCHEME=source|roundrobin|leastconn
 
+* Como le digo al router que el servicio sea round-robin?
+  * oc edit route srapoc
+  metadata:
+    annotations:
+      haproxy.router.openshift.io/balance: roundrobin
+
 * Como veo los operadores de un cluster?
 * oc get clusteroperator
 
