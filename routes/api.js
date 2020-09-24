@@ -45,11 +45,11 @@ router.get('/hostname', function(req, res) {
 
   console.log(JSON.stringify(data))
 
+  res.set("Connection", "close");
+
   res.json(data)
 
 //  setTimeout(function() { res.json(data) }, 250)
-
-  res.set("Connection", "close");
 
 // corta el socket
 // hasta la version 13.0
