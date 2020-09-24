@@ -274,14 +274,13 @@ node clientes/listaCompleta.js -u http://api.srapoc.com:28275/
 ```
 
 ### Pasos para agregar a la Sra. POC en un cluster de openshift
-* oc login -u frossi https://console-openshift-console.apps.cltrtecno.bancocredicoop.coop:6443
-* oc new-build --name srapoc https://github.com/GuruSoda/SraPOC.git
+* oc login -u frossi https://api.cltrtecno.bancocredicoop.coop:6443
+* oc new-app --name srapoc https://github.com/GuruSoda/SraPOC.git
   * Problemas con el proxy? -> git config --global http.proxyAuthMethod 'basic'
 * oc logs -f bc/srapoc -> ver el log
 * oc set env bc/srapoc AUTOR=frossi -> agregar una variable de entorno
   * oc set env bc/srapoc --list -> ver las variables de entorno
-* oc start-build srapoc -> repetir el proceso de build
-* oc new-app srapoc
+* oc start-build srapoc -> en caso de querer repetir el proceso de build
 * oc get pods -> ver las etapas hasta ver donde esta ejecutandose
 * oc expose svc/srapoc --port=28275 --> puerto defaul es 8080
 * oc edit svc/srapoc --> cambiar el puerto.

@@ -43,9 +43,20 @@ router.get('/hostname', function(req, res) {
 
   let data = { hostname: os.hostname() }
 
+  console.log(JSON.stringify(data))
+
   res.json(data)
 
-  console.log(JSON.stringify(data))
+//  setTimeout(function() { res.json(data) }, 250)
+
+  res.set("Connection", "close");
+
+// corta el socket
+// hasta la version 13.0
+//  res.connection.destroy();
+// a partir de la version 13.0
+//  res.socket.destroy()
+//  res.json(data)
 })
 
 router.get('/falla', function(req, res) {

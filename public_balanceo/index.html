@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Import Google Icon Font-->
+<!--     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Custom css -->
+    <link type="text/css" rel="stylesheet" href="css/custom.css"  media="screen,projection"/>
+
+    <title>Prueba de Balanceo</title>
+</head>
+<body>
+
+    <div class="container">
+        <div id="main">
+            <div class="row">
+                <div class="col s6">
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Nombre POD</th>
+                                <th>Pedidos</th>
+                                <th>% Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla">
+<!--                             <tr>
+                                <td>Alvin</td>
+                                <td>Eclair</td>
+                                <td>$0.87</td>
+                            </tr>
+                            <tr>
+                                <td>Alan</td>
+                                <td>Jellybean</td>
+                                <td>$3.76</td>
+                            </tr>
+                            <tr>
+                                <td>Jonathan</td>
+                                <td>Lollipop</td>
+                                <td>$7.00</td>
+                            </tr>
+ -->                        </tbody>
+                    </table>
+                </div>
+                <div class="col s6">
+                    <div class="row">
+                        <div class="col s4">
+                            <a id="botonComenzar" class="waves-effect waves-light btn" onclick=onComenzar()><i class="material-icons right">settings</i>Comenzar</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s4">
+                            <a id="botonDetener" class="waves-effect waves-light btn" onclick=onDetener()><i class="material-icons right">settings</i>Detener</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s4">
+                            <a id="botonLimpiar" class="waves-effect waves-light btn" onclick=onLimpiar()><i class="material-icons right">clear</i>Limpiar</a>
+                        </div>
+                    </div>
+                    <blockquote>
+                        Total Requerimientos: <span id="totalReq">0</span>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

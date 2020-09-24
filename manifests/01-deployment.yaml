@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: srapoc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: srapoc
+  template:
+    metadata:
+      labels:
+        app: srapoc
+    spec:
+      containers:
+      - name: srapoc
+        # image: docker.io/gurusoda/srapoc:1.0
+        image: 192.168.1.55:5000/srapoc:1.0
+        imagePullPolicy: IfNotPresent        
+        ports:
+        - containerPort: 28275
