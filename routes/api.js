@@ -45,9 +45,12 @@ router.get('/hostname', function(req, res) {
 
   console.log(JSON.stringify(data))
 
-  res.set("Connection", "close");
+  res.set("Connection", "close")
 
-  res.json(data)
+  if (req.query.salida === 'json' || !req.query.salida)
+    res.json(data)
+  else if (req.query.salida === 'txt')
+    res.send(data.hostname + '\n')
 
 //  setTimeout(function() { res.json(data) }, 250)
 
