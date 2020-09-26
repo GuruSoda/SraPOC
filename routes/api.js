@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const os = require('os')
-const process = require('process');
+const process = require('process')
+const fetch = require('node-fetch')
 
 router.get('/', function(req, res) {
   res.send(
@@ -45,7 +46,13 @@ router.get('/hostname', function(req, res) {
 
   console.log(JSON.stringify(data))
 
-  res.set("Connection", "close")
+  if (req.query.cortar) {
+    if (req.query.cortar === 'si') {
+      res.set("Connection", "close")
+    }
+  }
+
+  res.set("Hostname", "local")
 
   if (req.query.salida === 'json' || !req.query.salida)
     res.json(data)
@@ -60,6 +67,52 @@ router.get('/hostname', function(req, res) {
 // a partir de la version 13.0
 //  res.socket.destroy()
 //  res.json(data)
+})
+
+async function hostnamesvc(url) {
+
+  let hostname = ''
+
+  await fetch(url)
+    .then(res => res.json())
+    .then(json => {
+      hostname = json.hostname
+    })
+    .catch(err => {
+      hostname = err
+    })
+
+    return new Promise(function (resolve, reject) {
+        resolve(hostname)
+    })
+}
+
+router.get('/hostnamesvc', function(req, res) {
+
+  let data = { hostname: '' }
+
+  hostnamesvc('http://srapoc:28275/api/hostname').then(function (nombre) {
+
+    data.hostname = nombre
+  
+    console.log(JSON.stringify(data))
+
+    if (req.query.cortar) {
+      if (req.query.cortar === 'si') {
+        res.set("Connection", "close")
+      }
+    }
+
+    res.set("Hostname", "svc")
+  
+    if (req.query.salida === 'json' || !req.query.salida)
+      res.json(data)
+    else if (req.query.salida === 'txt')
+      res.send(data.hostname + '\n')
+  
+  //  setTimeout(function() { res.json(data) }, 250) 
+  })
+
 })
 
 router.get('/falla', function(req, res) {

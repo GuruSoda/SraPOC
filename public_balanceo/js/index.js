@@ -4,7 +4,9 @@ var midiendo=false
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('botonDetener').classList.add('disabled')
 
-});
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+})
 
 function existe_hostname(hostname) {
     var i;
@@ -47,7 +49,7 @@ function getJSONV0(url) {
       xhttp.open("POST", "http://localhost:8080/data", true);
       xhttp.send();
     } catch(e) {
-      console.log('catch', e);
+        console.log('catch', e);
     }
 }
 
@@ -72,12 +74,25 @@ async function onComenzar() {
     document.getElementById('botonComenzar').classList.add('disabled')
     document.getElementById('botonLimpiar').classList.add('disabled')
     document.getElementById('botonDetener').classList.remove('disabled')
+    document.getElementById("tipoConsulta").disabled = true
+    document.getElementById('cortarConexion').setAttribute('disabled', 'disabled')
+
+    var url = ''
+
+    var e = document.getElementById("tipoConsulta").value
+
+    if (e === 'local') url = '../api/hostname'
+    else if (e === 'svc') url = '../api/hostnamesvc'
+    else url = '../api/hostname'
+
+    if (document.getElementById('cortarConexion').checked)
+        url += '?cortar=si'
 
     midiendo = true
 
     while (midiendo) {
 //         let data = await getJSON('http://192.168.1.75:31013/api/hostname')
-        let data = await getJSON('../api/hostname')
+        let data = await getJSON(url)
 
 //        console.log(data)
 
@@ -86,8 +101,6 @@ async function onComenzar() {
          document.getElementById('totalReq').innerHTML = conexiones.peticiones
 
          refrescar_tabla()
-
-//         console.log('Pidiendo a ' + data.hostname)
     }
 }
 
@@ -153,6 +166,8 @@ function onDetener() {
     document.getElementById('botonComenzar').classList.remove('disabled')
     document.getElementById('botonLimpiar').classList.remove('disabled')
     document.getElementById('botonDetener').classList.add('disabled')
+    document.getElementById("tipoConsulta").disabled = false
+    document.getElementById('cortarConexion').removeAttribute('disabled')
 
     console.log(conexiones)
 }
