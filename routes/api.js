@@ -37,7 +37,10 @@ router.get('/info', function(req, res) {
 router.post('/stdout', function(req, res) {
   res.json(req.body)
 
-  console.log(JSON.stringify(req.body))
+  if (req.body.stdout)
+    console.log(req.body.stdout)
+  else
+    console.log(req.body)
 })
 
 router.get('/hostname', function(req, res) {
