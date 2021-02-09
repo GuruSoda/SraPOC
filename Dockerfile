@@ -16,3 +16,6 @@ CMD [ "node", "index.js" ]
 # docker build -t 192.168.1.55:5000/srapoc:1.0 .
 # docker push 192.168.1.55:5000/srapoc:1.0
 # docker run -p 4500:28275 -d --name srapoc 192.168.1.55:5000/srapoc:1.0
+
+## en caso que querer poner la imagen en el cluster
+# kubectl -n fabricio rollout restart deployment srapoc

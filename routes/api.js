@@ -82,7 +82,7 @@ async function hostnamesvc(url) {
       hostname = json.hostname
     })
     .catch(err => {
-      hostname = err
+      hostname = err.code
     })
 
     return new Promise(function (resolve, reject) {
