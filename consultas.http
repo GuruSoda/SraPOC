@@ -1,0 +1,157 @@
+### servidor 
+@armame = http://192.168.1.108:30003
+@elastic = http://192.168.1.108:9200
+
+@srapoc = http://192.168.1.108:28275
+
+### ArMame
+GET https://www.planetaguru.com.ar/armamews/games/gng/info
+
+### Info de un juego
+GET {{armame}}/mame/games/gng
+
+### lista completa
+GET {{armame}}/mame/games
+
+### 
+GET {{srapoc}}/api/headers
+User-Agent: cliente-rest-visual
+date: {{$guid}}
+
+### 
+GET {{armame}}/mame/games/rygar
+
+### Elastic
+
+### estado
+GET {{elastic}}/_cluster/state?pretty
+
+### health
+GET {{elastic}}/_cluster/health?pretty
+
+###
+GET {{elastic}}/_cat/indices?v
+Content-Type: application/json
+
+###
+GET {{elastic}}/srapoc-2021.03.11/_doc/Xk3kIngByq2bi-PL9-hw
+
+###
+GET {{elastic}}/srapoc-2021.03.11/Xk3kIngByq2bi-PL9-hw
+
+### desabilitar el campo _source
+PUT {{elastic}}/srapoc-2021.03.11
+{
+  "mappings": {
+    "_source": {
+      "enabled": false
+    }
+  }
+}
+
+### borrar
+DELETE {{elastic}}/srapoc-*/_doc/s_sGJ3gBPhmkwUZrgzQ7
+
+## busquedas
+
+### 
+GET {{elastic}}/srapoc-*/_search?q=gngt
+
+###
+GET {{elastic}}/srapoc-*/_search
+content-type: application/json
+
+{
+  "_source": ["name", "description"], 
+  "query": {
+    "match": {
+      "runnable": 0
+    }
+  }
+}
+
+###
+GET {{elastic}}/srapoc-2021.03.12/_search
+content-type: application/json
+
+{
+  "query": { 
+    "match_all": {} 
+  },
+  "from": 1,
+  "size": 2
+}
+
+###
+GET {{elastic}}/srapoc-*/_search
+content-type: application/json
+
+{
+  "_source": ["name", "description", "year"], 
+  "query": {
+    "query_string": {
+      "query": "goblins"
+    }
+  },
+  "sort": [{"year": "desc"}]
+}
+
+###
+## Buscar una palabra en el atributo "description"
+## Solo muestra 3 atributos
+GET {{elastic}}/srapoc-*/_search
+content-type: application/json
+
+{
+  "_source": ["name", "description", "year"], 
+  "query": {
+    "match": {
+      "description":{
+        "query": "ghosts goblins",
+        "operator": "OR"
+      }
+    }
+  }
+}
+
+###
+## buscar segun una expresion regular
+GET {{elastic}}/srapoc-*/_search
+content-type: application/json
+
+{
+  "_source": ["name", "description", "year"], 
+  "query": {
+    "regexp": {
+      "name": "gng[a-zA-Z]*"
+    }
+  },
+  "sort": [{"year": "desc"}]
+}
+
+
+### 
+## no me funciono, lo hice desde el fluentd
+PUT /haproxy-*/_mapping
+{
+  "properties": {
+    "response_time": {
+      "type": "number"
+    }
+  }
+}
+
+###
+GET {{elastic}}/haproxy-*/_count?q=method:POST
+
+###
+GET {{elastic}}/haproxy-*/_count
+content-type: application/json
+
+{
+  "query": {
+    "match": {
+      "tag": "haproxy.log"
+    }
+  }
+}
