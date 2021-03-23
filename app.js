@@ -13,8 +13,8 @@ app.set('etag', false)
 
 // app.use(logger('dev'));
 app.use(cors())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '100mb'}));
+app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/balanceo', express.static(path.join(__dirname, 'public_balanceo')));
 

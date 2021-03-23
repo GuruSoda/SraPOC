@@ -5,6 +5,8 @@ const os = require('os')
 const process = require('process')
 const fetch = require('node-fetch')
 
+let total_json=0
+
 router.get('/', function(req, res) {
   res.send(
       {
@@ -34,13 +36,34 @@ router.get('/info', function(req, res) {
   console.log(JSON.stringify(data))
 });
 
+router.post('/json', function(req, res) {
+  res.json(req.body)
+
+  if (req.body instanceof Array) total_json += req.body.length
+  else total_json++
+
+})
+
+router.get('/json/reset', function(req, res) {
+
+  res.json({ultimo_valor: total_json})
+
+  total_json=0
+})
+
+router.get('/json/count', function(req, res) {
+  res.json({count: total_json})
+})
+
+
 router.post('/stdout', function(req, res) {
+
   res.json(req.body)
 
   if (req.body.stdout)
-    console.log(req.body.stdout)
+    console.log('stdout:', req.body.stdout)
   else
-    console.log(req.body)
+    console.log('body:', req.body)
 })
 
 router.get('/hostname', function(req, res) {

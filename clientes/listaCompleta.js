@@ -29,12 +29,12 @@ function sacarListaJuegos(url) {
 function sacarJuego(url) {
     return fetch(url)
     .then(rta => rta.json())
-    .then(rta => {
-        return rta.description
-    })
-    .catch(error) {
+//    .then(rta => {
+//        return rta.description
+//    })
+    .catch(error => {
         console.log('Error:', error)
-    }
+    })
 }
 
 async function mostrar_juegos(host) {
@@ -42,7 +42,7 @@ async function mostrar_juegos(host) {
 
     for (const juego of nombres) {
         // await sacarJuego(host + 'mame/games/' + juego)
-        console.log(await sacarJuego(host + 'mame/games/' + juego))
+        console.log(JSON.stringify(await sacarJuego(host + 'mame/games/' + juego)))
     }
 }
 
