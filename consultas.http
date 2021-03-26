@@ -1,6 +1,6 @@
 ### servidor 
 @armame = http://192.168.1.108:30003
-@elastic = http://192.168.1.108:9200
+@elastic = http://192.168.1.111:9200
 
 @srapoc = http://192.168.1.108:28275
 
@@ -65,13 +65,13 @@ content-type: application/json
   "_source": ["name", "description"], 
   "query": {
     "match": {
-      "runnable": 0
+      "runnable": 1
     }
   }
 }
 
 ###
-GET {{elastic}}/srapoc-2021.03.12/_search
+GET {{elastic}}/srapoc-*/_search
 content-type: application/json
 
 {
@@ -90,7 +90,8 @@ content-type: application/json
   "_source": ["name", "description", "year"], 
   "query": {
     "query_string": {
-      "query": "goblins"
+      "query": "gng*",
+      "default_field": "name"
     }
   },
   "sort": [{"year": "desc"}]
@@ -152,6 +153,53 @@ content-type: application/json
   "query": {
     "match": {
       "tag": "haproxy.log"
+    }
+  }
+}
+
+###
+GET {{elastic}}/haproxy-*/_count
+content-type: application/json
+
+{
+  "query": {
+##    "term": {
+##      "tag": "haproxy.log"
+##    },
+    "range": {
+      "@timestamp": {
+        "time_zone": "-03:00",
+        "gte": "2020-12-04T10:00:00",
+        "lte": "2020-12-04T10:59:59"
+      }
+    }
+  }
+}
+
+###
+GET {{elastic}}/haproxy-*/_count
+content-type: application/json
+
+{
+  "query": {
+    "regexp": {
+      "host": {
+        "value": "atm.appl.*",
+        "flags": "ALL",
+        "case_insensitive": true
+      }
+    }
+  }
+}
+
+###
+GET {{elastic}}/haproxy-*/_count
+content-type: application/json
+
+{
+  "query": {
+    "query_string": {
+      "query": "tag:haproxy.log date:[2021-03-19@23:00:00 TO 2021-03-19]"
     }
   }
 }
