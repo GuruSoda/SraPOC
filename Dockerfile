@@ -1,5 +1,5 @@
 # FROM node:12
-FROM mhart/alpine-node:12
+FROM node:20.11.1-alpine3.19
 
 WORKDIR /usr/src/app
 
